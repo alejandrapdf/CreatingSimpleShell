@@ -1,0 +1,81 @@
+CHANGELOG:
+
+01/02/2021:
+
+- We were getting a ‘corrupted top size’ error with malloc so we defined the max amount of characters and multiplied the values by that constant
+
+- We fixed the printing and abused it with lots of strings until we got it working 
+
+- Instead of exiting when the input was too high, we added in some code to flush the input buffer so the program could continue normally
+
+- We free’d the memory from the tokenized array just to avoid memory leaks as we got malloc errors with repeated large inputs. 
+
+02/02/2021:
+
+-calling main() after a large string was entered was causing the user to have to type exit multiple times because eventually the program returned to the original state when the large string was entered. Altered the behaviour to return a blank string as if the user had input nothing 
+
+-added a check to see if the user had pressed ctrl+d while the input contained text - see line  68 and attached comment
+
+03/02/2021:
+
+-Added stage 2 to the shell.
+
+-Creates a new child process and executes command taken from user input, with suitable input validation taking place.
+
+-Ensured that the child process ended upon an invalid user input.
+
+-Changed variable name of split.
+
+03/02/2021 (2): 
+
+- changed error messages to use perror instead of printf
+
+- made error messages more descriptive 
+
+04/02/2021: 
+
+- made changes to the input to fix the bug when input was exactly 512 characters 
+
+- made some variable names more descriptive
+
+- removed some commented out code
+
+08/02/2021:
+
+-Reworked the structure of existing code to allign with standard C coding conventions. Thus also increasing the readability of the code.
+
+-Adjusted the set path method so that it could be used by the machine as well as the user.
+
+-Created the header file shell.h and renamed the main.c file to shell.c
+
+-Created the change directory function which allows the user to change the home directory.
+
+13/02/2021:
+
+- Added linked list code for use with aliases, history and recursive alias verification
+
+- Broke (and then fixed) the list by accident, forgot to assign NULL to node->next which was causing segfaults in the while loops
+
+- Added history functionality as well as some interface methods for the saving and loading of history/aliases from files
+
+- Added ability to print out current history list, list is unlimited so will be good to add functionality for history [number] which limits list 
+
+- Made a mistake with linux file system, we were using \'s instead of /'s which was causing weird issues when exiting the shell outside of home dir
+
+- TODO: add ability for user to invoke history from list - ran out of steam after a while (will do monday)
+
+18/02/2021:
+
+- Fixed the shift amount to remove the command number when the number is >9 ( ceil(log10(command_count)) returns the digits
+
+- Cleaned up some mallocs and stopped the shell adding repeated history e.g. if you type "history" 100 times it will only add once
+
+- Added a check in case something goes wrong with the loading of the list
+
+- Fixed a mistake with the logic for history invocations, previous method didn't work when history wasn't full
+
+- Changed some error messages to be more informative
+
+- Added execute_print_history method with additional checks
+
+- TODO: Take Andrew's advice into account and have a look at reducing unnecessary mallocs
